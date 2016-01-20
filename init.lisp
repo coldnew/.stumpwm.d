@@ -44,3 +44,26 @@
 (add-hook *start-hook* #'my-start-hook)
 
 (define-key *root-map* (kbd "f") "firefox")
+
+(define-key *top-map* (kbd "s-o") "other-window")
+(define-key *root-map* (kbd "2") "vsplit")
+(define-key *root-map* (kbd "3") "hsplit")
+;;(define-key *root-map* (kbd "1") "maximize")
+
+;;;; Super pferix
+(define-key *top-map* (kbd "s-Left") "move-window left")
+(define-key *top-map* (kbd "s-Right") "move-window right")
+(define-key *top-map* (kbd "s-Up") "move-window up")
+(define-key *top-map* (kbd "s-Down") "move-window down")
+
+;; The mouse focus policy decides how the mouse affects input focus
+(setf *mouse-focus-policy* :click)
+
+;;;;;; TODO:
+;;(setf *input-window-gravity* :center)
+(setf *message-window-gravity* :center)
+(setf *message-window-padding* 4)
+
+;;(set-border-color "red")
+;; in seconds, how long a mesage will appear for. This must be an integer
+;;(setf *timeout-wait* 3)
