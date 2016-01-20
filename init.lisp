@@ -54,6 +54,7 @@
 (define-key *root-map* (kbd "c") "konsole")
 
 (define-key *top-map* (kbd "s-o") "other-window")
+(define-key *root-map* (kbd "1") "only")
 (define-key *root-map* (kbd "2") "vsplit")
 (define-key *root-map* (kbd "3") "hsplit")
 ;;(define-key *root-map* (kbd "1") "maximize")
