@@ -26,6 +26,10 @@
 
 ;;; Define window placement policy...
 
+;; plugins
+(load "/home/coldnew/.stumpwm.d/modules/dmenu/dmenu-wrapper.lisp")
+;;(load "modules/dmenu/dmenu-wrapper.lisp")
+
 ;; Clear rules
 ;; (clear-window-placement-rules)
 
@@ -34,6 +38,9 @@
 
 (defcommand emacs () ()
             (run-or-raise "emacs" '(:class "Emacs")))
+
+(defcommand konsole () ()
+            (run-or-raise "konsole" '(:class "Konsole")))
 
 (defun my-start-hook ()
   (emacs)
@@ -44,6 +51,7 @@
 (add-hook *start-hook* #'my-start-hook)
 
 (define-key *root-map* (kbd "f") "firefox")
+(define-key *root-map* (kbd "c") "konsole")
 
 (define-key *top-map* (kbd "s-o") "other-window")
 (define-key *root-map* (kbd "2") "vsplit")
@@ -56,6 +64,8 @@
 (define-key *top-map* (kbd "s-Up") "move-window up")
 (define-key *top-map* (kbd "s-Down") "move-window down")
 
+(define-key *top-map* (kbd "s-1") "dmenu-run")
+
 ;; The mouse focus policy decides how the mouse affects input focus
 (setf *mouse-focus-policy* :click)
 
@@ -67,3 +77,5 @@
 ;;(set-border-color "red")
 ;; in seconds, how long a mesage will appear for. This must be an integer
 ;;(setf *timeout-wait* 3)
+
+;;(toggle-mode-line (current-screen) (current-head))
