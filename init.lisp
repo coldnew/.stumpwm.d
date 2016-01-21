@@ -13,14 +13,14 @@
 ;;(ql:quickload :swank)
 (let ((server-running nil))
   (defcommand swank () ()
-              "Only start swank server once."
-              (when (not server-running)
-                (swank:create-server :port 4005
-                                     :style swank:*communication-style*
-                                     :dont-close t)
-                (echo-string (current-screen)
-                             "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm).")
-                (setf server-running t)))
+    "Only start swank server once."
+    (when (not server-running)
+      (swank:create-server :port 4005
+                           :style swank:*communication-style*
+                           :dont-close t)
+      (echo-string (current-screen)
+                   "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm).")
+      (setf server-running t)))
   ;; start swank
   (swank))
 
@@ -34,13 +34,26 @@
 ;; (clear-window-placement-rules)
 
 (defcommand firefox () ()
-            (run-or-raise "firefox" '(:class "Firefox")))
+  (run-or-raise "firefox" '(:class "Firefox")))
 
 (defcommand emacs () ()
-            (run-or-raise "emacs" '(:class "Emacs")))
+  (run-or-raise "emacs" '(:class "Emacs")))
 
 (defcommand konsole () ()
-            (run-or-raise "konsole" '(:class "Konsole")))
+  (run-or-raise "konsole" '(:class "Konsole")))
+
+(defun shift-windows-forward (frames win)
+  (when frames
+    (let ((frame (car frames)))
+      (shift-windows-forward (cdr frames)
+                             (frame-window frame))
+      (when win
+        (pull-window win frame)))))
+
+(defcommand rotate-windows () ()
+  (let* ((frames (group-frames (current-group)))
+         (win (frame-window (car (last frames)))))
+    (shift-windows-forward frames win)))
 
 (defun my-start-hook ()
   (emacs)
